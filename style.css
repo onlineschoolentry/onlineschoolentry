@@ -10,33 +10,27 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  user-select: none;
 }
 
 body {
   background: var(--bg-color);
-  color: #333;
-  line-height: 1.6;
-  padding: 4vh 5vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem 1rem;
 }
 
-/* 타이틀 */
 h1 {
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   color: var(--main-color);
+  font-weight: 800;
   text-align: center;
-  margin-bottom: 2rem;
-  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
-/* 폼 박스 */
 #personalForm {
   background: #fff;
   padding: 1.5rem;
-  margin-bottom: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   width: 100%;
@@ -46,64 +40,33 @@ h1 {
   gap: 1rem;
 }
 
-#personalForm > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-/* 인풋 & 셀렉트 */
 input, select {
-  border: 1px solid var(--main-color);
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 1rem;
-  width: 100%;
-  background: #fff;
-  transition: 0.2s ease;
-}
-
-input:focus, select:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(129, 7, 7, 0.2);
-  outline: none;
-}
-
-/* 버튼 */
-button {
-  background: linear-gradient(to right, var(--main-color), var(--accent-color));
-  color: #fff;
-  padding: 1rem;
-  border: none;
+  border: 2px solid var(--main-color);
   border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+button {
   width: 100%;
   max-width: var(--form-max-width);
   margin-top: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  transition: 0.3s ease;
+  background: linear-gradient(to right, var(--main-color), var(--accent-color));
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 button:hover {
-  transform: translateY(-2px);
+  transform: scale(1.02);
 }
 
-/* QR 영역 */
-#qrBox {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-#qrcode {
-  margin-top: 1.2rem;
-}
-
-/* 푸터 */
 .footer {
-  text-align: center;
-  padding: 30px 0;
-  color: #666;
-  font-size: 0.7rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #525252;
 }
