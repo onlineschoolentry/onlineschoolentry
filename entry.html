@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>출입증</title>
-<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="style.css" />
 </head>
+<body>
 
-<body class="entry-page">
+<h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
-<div id="entryCard">
-  <h1>휴 일 출 입 증</h1>
-  <h1>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
-
-  <p id="info"></p>
-  <button id="exitBtn">ĐI RA</button>
+<div id="qrGenerateForm">
+  <p>학번(Mã số lớp): <span id="resultId"></span></p>
+  <p>이름(Họ tên): <span id="resultName"></span></p>
+  <p>날짜(Ngày hôm nay): <span id="resultDate"></span></p>
+  <p>사유(Lý do): <span id="resultReason"></span></p>
+  <p>지도 교사(GV chủ nhiệm): <span id="resultTeacher"></span></p>
+  <p>출입 여부(Ra vào): <span id="resultEntry"></span></p>
+  <p>사용 여부(Đã sử dụng): <span id="resultUse"></span></p>
 </div>
 
+<button id="exitBtn">ĐI RA</button>
+
 <footer class="footer">
-  © 2025 Online Entry. All rights reserved.
+  <p>© 2025 Online Entry. All rights reserved.</p>
 </footer>
 
 <script>
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-const name = params.get("name");
-const reason = params.get("reason");
-const teacher = params.get("teacher");
-const entry = params.get("entry");
-const use = params.get("use");
-const date = params.get("date");
+const params = new URLSearchParams(window.location.search);
 
-document.getElementById("info").innerHTML = `
-학번(Mã số lớp): ${id}<br>
-이름(Họ tên): ${name}<br>
-날짜(Ngày hôm nay): ${date}<br>
-사유(Lý do): ${reason}<br>
-지도 교사(GV chủ nhiệm): ${teacher}<br>
-출입 여부(Ra vào): ${entry}<br>
-사용 여부(Đã sử dụng): ${use}
-`;
+document.getElementById("resultId").textContent = params.get("id");
+document.getElementById("resultName").textContent = params.get("name");
+document.getElementById("resultReason").textContent = params.get("reason");
+document.getElementById("resultTeacher").textContent = params.get("teacher");
+document.getElementById("resultEntry").textContent = params.get("entry");
+document.getElementById("resultUse").textContent = params.get("use");
+document.getElementById("resultDate").textContent = params.get("date");
 
 document.getElementById("exitBtn").addEventListener("click", () => {
-  alert("퇴실이 확인되었습니다.");
+  alert("출입 기록이 저장되었습니다.");
+  document.getElementById("resultUse").textContent = "사용함(Đã sử dụng)";
 });
 </script>
 
