@@ -7,88 +7,158 @@
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
+
 <body>
 <h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
+<!-- 폼 입력 영역 -->
 <div id="personalForm">
   <div>
     <label>학번(Mã số lớp)</label>
-    <input id="studentId" placeholder="학번 입력 또는 QR 스캔" />
+    <input type="number" id="studentId" placeholder="학번 입력" required>
   </div>
 
   <div>
     <label>이름(Họ tên)</label>
-    <select id="studentName">
-      <option>선택</option>
-      <option>이성현</option>
-      <option>김예건</option>
-      <option>양지웅</option>
-      <option>양찬희</option>
-    </select>
+    <input type="text" id="name" placeholder="이름 입력" required>
+  </div>
+
+  <div>
+    <label>날짜(Ngày hôm nay)</label>
+    <input type="date" id="date" required>
   </div>
 
   <div>
     <label>사유(Lý do)</label>
-    <select id="reason">
-      <option>선택</option>
-      <option>방과후 수업</option>
-      <option>수학퍼실리테이터</option>
-      <option>자습</option>
-    </select>
+    <input type="text" id="reason" placeholder="사유를 입력하세요" required>
   </div>
 
   <div>
     <label>지도교사(GV chủ nhiệm)</label>
-    <select id="teacher">
-      <option>선택</option>
-      <option>김철수</option>
-      <option>박선영</option>
-      <option>최진호</option>
+    <select id="teacher" required>
+      <option selected disabled>선택</option>
+      <option value="권은숙">권은숙</option>
+      <option value="김대석">김대석</option>
+      <option value="김민석">김민석</option>
+      <option value="김민우">김민우</option>
+      <option value="김보관">김보관</option>
+      <option value="김보연">김보연</option>
+      <option value="김성도">김성도</option>
+      <option value="김윤성">김윤성</option>
+      <option value="김용흑">김용흑</option>
+      <option value="김은희">김은희</option>
+      <option value="김학균">김학균</option>
+      <option value="김하정">김하정</option>
+      <option value="남현정">남현정</option>
+      <option value="문상범">문상범</option>
+      <option value="문종배">문종배</option>
+      <option value="박미란">박미란</option>
+      <option value="박선영">박선영</option>
+      <option value="박현숙">박현숙</option>
+      <option value="박희진">박희진</option>
+      <option value="서윤정">서윤정</option>
+      <option value="송유난">송유난</option>
+      <option value="송유석">송유석</option>
+      <option value="신혜원">신혜원</option>
+      <option value="신혜정">신혜정</option>
+      <option value="신지연">신지연</option>
+      <option value="안혜린">안혜린</option>
+      <option value="양주영">양주영</option>
+      <option value="오늘림">오늘림</option>
+      <option value="오슬기">오슬기</option>
+      <option value="우민석">우민석</option>
+      <option value="유리라">유리라</option>
+      <option value="윤보라">윤보라</option>
+      <option value="윤진하">윤진하</option>
+      <option value="이근경">이근경</option>
+      <option value="이명기">이명기</option>
+      <option value="이승연">이승연</option>
+      <option value="이유준">이유준</option>
+      <option value="이지연">이지연</option>
+      <option value="이해원">이해원</option>
+      <option value="이현아">이현아</option>
+      <option value="이희호">이희호</option>
+      <option value="임정연">임정연</option>
+      <option value="임지현">임지현</option>
+      <option value="장대연">장대연</option>
+      <option value="정광대">정광대</option>
+      <option value="정선경">정선경</option>
+      <option value="정우성">정우성</option>
+      <option value="조영희">조영희</option>
+      <option value="조선현">조선현</option>
+      <option value="조인덕">조인덕</option>
+      <option value="조진행">조진행</option>
+      <option value="최강연">최강연</option>
+      <option value="최정민">최정민</option>
+      <option value="한지원">한지원</option>
+      <option value="한지혁">한지혁</option>
+      <option value="황사라">황사라</option>
+      <option value="황지혁">황지혁</option>
     </select>
   </div>
 
-  <button id="generateQR">QR 생성</button>
+  <button onclick="generateQR()">QR 생성</button>
 </div>
 
-<div id="qrBox" style="display:none; margin-top:2rem;">
-  <h2>QR을 스캔하면 출입증이 표시됩니다.</h2>
-  <div id="qrcode"></div>
+
+<!-- QR 결과창 -->
+<div id="qrGenerateForm" style="display:none;">
+  <p>학번(Mã số lớp): <span id="resultId"></span></p>
+  <p>이름(Họ tên): <span id="resultName"></span></p>
+  <p>날짜(Ngày hôm nay): <span id="resultDate"></span></p>
+  <p>사유(Lý do): <span id="resultReason"></span></p>
+  <p>지도 교사(GV chủ nhiệm): <span id="resultTeacher"></span></p>
+  <p>출입 여부(Ra vào): 허가됨(Đã được chấp nhận)</p>
+  <p>사용 여부(Đã sử dụng): 사용 안함(Chưa sử dụng)</p>
+
+  <div id="qrBox" style="text-align:center; margin-top:1.5rem;">
+    <div id="qrcode"></div>
+  </div>
+
+  <button onclick="confirmUse()">ĐI RA</button>
 </div>
 
-<footer class="footer">
-  <p>© 2025 Online Entry. All rights reserved.</p>
-</footer>
+
+<p class="footer">© 2025 Online Entry. All rights reserved.</p>
+
 
 <script>
-document.getElementById("generateQR").addEventListener("click", () => {
-  const id = document.getElementById("studentId").value.trim();
-  const name = document.getElementById("studentName").value;
+function generateQR() {
+  const id = document.getElementById("studentId").value;
+  const name = document.getElementById("name").value;
+  const date = document.getElementById("date").value;
   const reason = document.getElementById("reason").value;
   const teacher = document.getElementById("teacher").value;
 
-  if (!id || name === "선택" || reason === "선택" || teacher === "선택") {
+  if (!id || !name || !date || !reason || !teacher) {
     alert("모든 정보를 입력하세요.");
     return;
   }
 
-  const entry = "허가됨(Đã được chấp nhận)";
-  const use = "사용 안함(Chưa sử dụng)";
-  const date = new Date().toISOString().split("T")[0];
+  document.getElementById("resultId").innerText = id;
+  document.getElementById("resultName").innerText = name;
+  document.getElementById("resultDate").innerText = date;
+  document.getElementById("resultReason").innerText = reason;
+  document.getElementById("resultTeacher").innerText = teacher;
 
-  const base = "https://onlineschoolentry.github.io/onlineschoolentry/entry.html?";
-  const params = new URLSearchParams({ id, name, reason, teacher, entry, use, date });
-
-  document.getElementById("qrBox").style.display = "block";
+  document.getElementById("qrGenerateForm").style.display = "block";
   document.getElementById("qrcode").innerHTML = "";
 
+  const base = "https://onlineschoolentry.github.io/onlineschoolentry/entry.html";
+  const params = new URLSearchParams({ id, name, reason, teacher, date });
+
   new QRCode(document.getElementById("qrcode"), {
-    text: base + params.toString(),
+    text: base + "?" + params.toString(),
     width: 256,
-    height: 256,
-    colorDark: "#000000",
-    colorLight: "#ffffff"
+    height: 256
   });
-});
+}
+
+function confirmUse() {
+  alert("확인되었습니다 / Đã được xác nhận");
+  location.reload();
+}
 </script>
+
 </body>
 </html>
