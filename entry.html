@@ -1,61 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>출입 증명서</title>
-<link rel="stylesheet" href="/entry-system/style.css" />
-
-<style>
-#entryBox {
-  max-width: 650px;
-  margin: 2rem auto;
-  padding: 1.8rem;
-  border: 5px solid #7d140f;
-  border-radius: 18px;
-  background: #fff;
-}
-.itemText {
-  font-size: 1.3rem;
-  line-height: 2.3rem;
-  font-weight: 500;
-  color: #272727;
-}
-#goBtn {
-  width: 100%;
-  margin-top: 2rem;
-  background: linear-gradient(to right, #7d0f0f, #9c1b1b);
-  color: white;
-  padding: 1rem;
-  border-radius: 10px;
-  font-size: 1.6rem;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-}
-#goBtn:disabled {
-  background: #555;
-  cursor: default;
-}
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>출입증</title>
+<link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+<body class="entry-page">
 
-<h1 style="text-align:center; color:#7d0f0f; margin-top:1rem; font-size:2.3rem; font-weight:800;">
-휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG
-</h1>
+<div id="entryCard">
+  <h1>휴 일 출 입 증</h1>
+  <h1>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
-<div id="entryBox">
-  <p id="idField" class="itemText"></p>
-  <p id="nameField" class="itemText"></p>
-  <p id="dateField" class="itemText"></p>
-  <p id="reasonField" class="itemText"></p>
-  <p id="teacherField" class="itemText"></p>
-  <p id="entryField" class="itemText"></p>
-  <p id="useField" class="itemText"></p>
-
-  <button id="goBtn">ĐI RA</button>
+  <p id="info"></p>
+  <button id="exitBtn">ĐI RA</button>
 </div>
 
 <footer class="footer">
@@ -63,35 +22,27 @@
 </footer>
 
 <script>
-const p = new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+const name = params.get("name");
+const reason = params.get("reason");
+const teacher = params.get("teacher");
+const entry = params.get("entry");
+const use = params.get("use");
+const date = params.get("date");
 
-// 값 세팅
-document.getElementById("idField").innerHTML = `학번(Mã số lớp): ${p.get("id")}`;
-document.getElementById("nameField").innerHTML = `이름(Họ tên): ${p.get("name")}`;
-document.getElementById("dateField").innerHTML = `날짜(Ngày hôm nay): ${p.get("date")}`;
-document.getElementById("reasonField").innerHTML = `사유(Lý do): ${p.get("reason")}`;
-document.getElementById("teacherField").innerHTML = `지도 교사(GV chủ nhiệm): ${p.get("teacher")}`;
-document.getElementById("entryField").innerHTML = `출입 여부(Ra vào): ${p.get("entry")}`;
-document.getElementById("useField").innerHTML = `사용 여부(Đã sử dụng): ${p.get("use")}`;
+document.getElementById("info").innerHTML = `
+학번(Mã số lớp): ${id}<br>
+이름(Họ tên): ${name}<br>
+날짜(Ngày hôm nay): ${date}<br>
+사유(Lý do): ${reason}<br>
+지도 교사(GV chủ nhiệm): ${teacher}<br>
+출입 여부(Ra vào): ${entry}<br>
+사용 여부(Đã sử dụng): ${use}
+`;
 
-const goBtn = document.getElementById("goBtn");
-const usedKey = "used_" + p.get("id");
-
-// 이미 사용한 QR인지 검사
-if (localStorage.getItem(usedKey) === "1") {
-  goBtn.textContent = "이미 처리됨";
-  goBtn.disabled = true;
-  document.getElementById("useField").innerHTML =
-    "사용 여부(Đã sử dụng): 사용함(Đã sử dụng)";
-}
-
-// 버튼 클릭 시 처리 로직
-goBtn.addEventListener("click", () => {
-  document.getElementById("useField").innerHTML =
-    "사용 여부(Đã sử dụng): 사용함(Đã sử dụng)";
-  goBtn.textContent = "처리됨";
-  goBtn.disabled = true;
-  localStorage.setItem(usedKey, "1");
+document.getElementById("exitBtn").addEventListener("click", () => {
+  alert("퇴실이 확인되었습니다.");
 });
 </script>
 
