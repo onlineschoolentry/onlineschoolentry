@@ -2,81 +2,87 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>온라인 출입 시스템</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-<div>
-  <h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
+<h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
-  <label>학번(Mã số lớp)</label>
-  <input type="text" id="studentId" placeholder="학번 입력">
-
-  <label>이름(Họ tên)</label>
-  <select id="studentName">
-    <option value="">선택</option>
-    <option value="이성현">이성현</option>
-    <option value="김예건">김예건</option>
-    <option value="양지웅">양지웅</option>
-    <option value="양찬희">양찬희</option>
-  </select>
-
-  <label>사유(Lý do)</label>
-  <select id="reason">
-    <option value="">선택</option>
-    <option value="수학퍼실리테이터">수학퍼실리테이터</option>
-    <option value="방과후 수업">방과후 수업</option>
-  </select>
-
-  <label>지도교사(GV chủ nhiệm)</label>
-  <select id="teacher">
-    <option value="">선택</option>
-    <option value="박선영">박선영</option>
-    <option value="김철수">김철수</option>
-  </select>
-
-  <button id="applyBtn">QR 생성</button>
-
-  <div id="qrBox" style="display:none;">
-    <p>QR을 스캔하면 출입증이 표시됩니다.</p>
-    <div id="qrImg"></div>
+<div id="personalForm">
+  <div>
+    <label>학번(Mã số lớp)</label>
+    <input id="studentId" placeholder="학번 입력 또는 QR 스캔" />
   </div>
 
-  <footer class="footer">© 2025 Online Entry. All rights reserved.</footer>
+  <div>
+    <label>이름(Họ tên)</label>
+    <select id="studentName">
+      <option>선택</option>
+      <option>이성현</option>
+      <option>김예건</option>
+      <option>양지웅</option>
+      <option>양찬희</option>
+    </select>
+  </div>
+
+  <div>
+    <label>사유(Lý do)</label>
+    <select id="reason">
+      <option>선택</option>
+      <option>방과후 수업</option>
+      <option>수학퍼실리테이터</option>
+      <option>자습</option>
+    </select>
+  </div>
+
+  <div>
+    <label>지도교사(GV chủ nhiệm)</label>
+    <select id="teacher">
+      <option>선택</option>
+      <option>김철수</option>
+      <option>박선영</option>
+      <option>최진호</option>
+    </select>
+  </div>
+
+  <button id="generateQR">QR 생성</button>
 </div>
 
+<div id="qrBox" style="display:none; margin-top:2rem;">
+  <h2>QR을 스캔하면 출입증이 표시됩니다.</h2>
+  <div id="qrcode"></div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 Online Entry. All rights reserved.</p>
+</footer>
+
 <script>
-document.getElementById("applyBtn").addEventListener("click", () => {
-  const id = studentId.value.trim();
-  const name = studentName.value;
-  const reasonV = reason.value;
-  const teacherV = teacher.value;
+document.getElementById("generateQR").addEventListener("click", () => {
+  const id = document.getElementById("studentId").value.trim();
+  const name = document.getElementById("studentName").value;
+  const reason = document.getElementById("reason").value;
+  const teacher = document.getElementById("teacher").value;
 
-  if (!id || !name) return alert("학번과 이름은 필수입니다.");
+  if (!id || name === "선택" || reason === "선택" || teacher === "선택") {
+    alert("모든 정보를 입력하세요.");
+    return;
+  }
 
-  const data = {
-    id,
-    name,
-    reason: reasonV,
-    teacher: teacherV,
-    entry: "허가됨(Đã được chấp nhận)",
-    use: "사용 안함(Chưa sử dụng)",
-    date: new Date().toISOString().split("T")[0]
-  };
+  const entry = "허가됨(Đã được chấp nhận)";
+  const use = "사용 안함(Chưa sử dụng)";
+  const date = new Date().toISOString().split("T")[0];
 
-  localStorage.setItem(id, JSON.stringify(data));
+  const base = "https://lsh595.github.io/entry-system/entry.html?";
+  const params = new URLSearchParams({ id, name, reason, teacher, entry, use, date });
 
-  // ***** 핵심 수정 부분 *****
-  // 현재 index.html의 절대 경로 기반으로 entry.html 전체 URL 생성
-  const basePath = location.href.replace("index.html", "");
-  const qrURL = `${basePath}entry.html?key=${id}`;
-  // ********************************
+  document.getElementById("qrBox").style.display = "block";
+  document.getElementById("qrcode").innerHTML = "";
 
-  qrBox.style.display = "block";
-  qrImg.innerHTML = "";
-  new QRCode(qrImg, {
-    text: qrURL,
+  new QRCode(document.getElementById("qrcode"), {
+    text: base + params.toString(),
     width: 256,
     height: 256,
     colorDark: "#810707",
