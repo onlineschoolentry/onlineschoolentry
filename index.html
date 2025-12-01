@@ -75,8 +75,7 @@ document.getElementById("generateQR").addEventListener("click", () => {
   const entry = "허가됨(Đã được chấp nhận)";
   const use = "사용 안함(Chưa sử dụng)";
   const date = new Date().toISOString().split("T")[0];
-
-  const base = "https://lsh595.github.io/entry-system/entry.html?";
+  const base = "https://onlineschoolentry.github.io/onlineschoolentry/entry.html?";
   const params = new URLSearchParams({ id, name, reason, teacher, entry, use, date });
 
   document.getElementById("qrBox").style.display = "block";
@@ -91,3 +90,4 @@ document.getElementById("generateQR").addEventListener("click", () => {
 </script>
 </body>
 </html>
+
