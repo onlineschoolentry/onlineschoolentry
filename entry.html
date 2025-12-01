@@ -4,17 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>출입증</title>
+
+<!-- 절대경로로 변경: 여기 핵심 -->
 <link rel="stylesheet" href="https://lsh595.github.io/entry-system/style.css" />
 </head>
+
 <body>
 <h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
-<div id="result">
-  <p id="info">정보 로딩 중...</p>
-  <div id="circleCheck"></div>
-</div>
+<div id="result"></div>
 
-<button id="leave-btn">ĐI RA</button>
+<div id="circleCheck"></div>
+
+<button onclick="history.back()">ĐI RA</button>
 
 <footer class="footer">
   <p>© 2025 Online Entry. All rights reserved.</p>
@@ -23,21 +25,24 @@
 <script>
 const params = new URLSearchParams(location.search);
 
-document.getElementById("info").innerText = `
-학번(Mã số lớp): ${params.get("id")}
-이름(Họ tên): ${params.get("name")}
-날짜(Ngày hôm nay): ${params.get("date")}
-사유(Lý do): ${params.get("reason")}
-지도 교사(GV chủ nhiệm): ${params.get("teacher")}
-출입 여부(Ra vào): ${params.get("entry")}
-사용 여부(Đã sử dụng): ${params.get("use")}
-`;
+const id = params.get("id") || "";
+const name = params.get("name") || "";
+const reason = params.get("reason") || "";
+const teacher = params.get("teacher") || "";
+const entry = params.get("entry") || "";
+const use = params.get("use") || "";
+const date = params.get("date") || "";
 
-document.getElementById("leave-btn").addEventListener("click", () => {
-  alert("퇴실 시간이 기록되었습니다!\nThời gian ra đã được ghi lại!");
-});
+document.getElementById("result").innerHTML = `
+  <p>학번(Mã số lớp): ${id}</p>
+  <p>이름(Họ tên): ${name}</p>
+  <p>날짜(Ngày hôm nay): ${date}</p>
+  <p>사유(Lý do): ${reason}</p>
+  <p>지도 교사(GV chủ nhiệm): ${teacher}</p>
+  <p>출입 여부(Ra vào): ${entry}</p>
+  <p>사용 여부(Đã sử dụng): ${use}</p>
+`;
 </script>
+
 </body>
 </html>
-
-
