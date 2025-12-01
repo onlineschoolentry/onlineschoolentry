@@ -6,41 +6,43 @@
 <title>출입증</title>
 
 <link rel="stylesheet" href="https://lsh595.github.io/entry-system/style.css" />
+
 <style>
 #cardBox {
   border: 4px solid #8b0e0e;
   border-radius: 30px;
-  padding: 2rem 1.8rem;
-  margin: 1.5rem auto;
+  padding: 2rem 2rem;
+  margin: 2rem auto;
   max-width: 700px;
   background: #fff;
   position: relative;
 }
 
 #stamp {
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   background: #6e0c0c;
-  border-radius: 100%;
+  border-radius: 50%;
   position: absolute;
-  right: 2rem;
   top: 2rem;
+  right: 2rem;
 }
 
 #info p {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  margin: 1rem 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  margin: 1.4rem 0;
   font-weight: 500;
 }
 
 #goBtn {
-  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
   margin-top: 2rem;
 }
 </style>
-</head>
 
+</head>
 <body>
+
 <h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
 <div id="cardBox">
@@ -55,7 +57,7 @@
 </footer>
 
 <script>
-const p = new URLSearchParams(location.search);
+const p = new URLSearchParams(window.location.search);
 
 document.getElementById("info").innerHTML = `
   <p>학번(Mã số lớp): ${p.get("id")}</p>
