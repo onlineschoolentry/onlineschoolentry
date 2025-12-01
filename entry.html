@@ -1,52 +1,133 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>출입증</title>
-<style>
-:root { --main:#810707; }
-body { background:#f5f5f5; padding:2rem; font-family:'Segoe UI'; text-align:center; }
-h1 { color:var(--main); font-size:2rem; font-weight:800; margin-bottom:1rem; }
-#card {
-  background:#fff; border:3px solid var(--main);
-  border-radius:20px; padding:2rem;
-  max-width:600px; margin:auto; text-align:left;
-  position:relative; line-height:2rem; font-size:1.2rem;
-}
-#circle {
-  width:80px; height:80px; background:var(--main);
-  border-radius:100px; position:absolute; right:1.5rem; top:1.5rem;
-}
-button {
-  background:var(--main); padding:1rem; width:100%;
-  max-width:600px; border:none; border-radius:12px;
-  color:#fff; margin-top:2rem; font-size:1.3rem;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>휴일 출입 증</title>
+  <style>
+    :root {
+      --main-color: #810707;
+      --accent-color: #a81010;
+      --bg-color: #f5f5f5;
+      --font-base: clamp(0.95rem, 1.2vw, 1.05rem);
+      --font-medium: clamp(1.15rem, 1.8vw, 1.6rem);
+      --font-large: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: #333;
+      font-size: var(--font-base);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+    }
+
+    #wrapper {
+      width: 100%;
+      max-width: 650px;
+      padding: 2rem 1rem 4rem;
+      text-align: left;
+    }
+
+    h1 {
+      font-size: var(--font-large);
+      color: var(--main-color);
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    #resultBox {
+      background: #fff;
+      border: 3px solid var(--main-color);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    span {
+      font-weight: 400;
+      color: black;
+    }
+
+    #circleCheck {
+      width: 80px;
+      height: 80px;
+      background: var(--main-color);
+      border-radius: 100px;
+      float: right;
+      margin-top: -2rem;
+    }
+
+    button {
+      background: linear-gradient(to right, var(--main-color), var(--accent-color));
+      color: #fff;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-top: 2rem;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #555;
+    }
+  </style>
 </head>
-
 <body>
-<h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
+  <div id="wrapper">
 
-<div id="card">
-  <div id="circle"></div>
-  <pre id="info"></pre>
-</div>
+    <h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
 
-<button onclick="out()">ĐI RA</button>
+    <div id="resultBox">
+      <div id="circleCheck"></div>
+      <p>학번(Mã số lớp): <span id="id"></span></p>
+      <p>이름(Họ tên): <span id="name"></span></p>
+      <p>날짜(Ngày hôm nay): <span id="date"></span></p>
+      <p>사유(Lý do): <span id="reason"></span></p>
+      <p>지도 교사(GV chủ nhiệm): <span id="teacher"></span></p>
+      <p>출입 여부(Ra vào): <span id="entry"></span></p>
+      <p>사용 여부(Đã sử dụng): <span id="use"></span></p>
+    </div>
 
-<script>
-const p = new URLSearchParams(location.search);
-document.getElementById("info").textContent =
-`학번(Mã số lớp): ${p.get("id")}
-이름(Họ tên): ${p.get("name")}
-날짜(Ngày hôm nay): ${p.get("date")}
-사유(Lý do): ${p.get("reason")}
-지도교사(GV chủ nhiệm): ${p.get("teacher")}
-출입 여부(Ra vào): ${p.get("entry")}
-사용 여부(Đã sử dụng): ${p.get("use")}`;
+    <button onclick="alert('퇴실 시간이 기록되었습니다!')">ĐI RA</button>
 
-function out(){ alert("퇴실 완료"); location.reload(); }
-</script>
+    <footer>© 2025 Online Entry. All rights reserved.</footer>
+  </div>
+
+  <script>
+    // URL 파라미터 가져오기
+    const params = new URLSearchParams(window.location.search);
+
+    // 값 대입
+    document.getElementById("id").textContent = params.get("id");
+    document.getElementById("name").textContent = params.get("name");
+    document.getElementById("reason").textContent = params.get("reason");
+    document.getElementById("teacher").textContent = params.get("teacher");
+    document.getElementById("entry").textContent = params.get("entry");
+    document.getElementById("use").textContent = params.get("use");
+    document.getElementById("date").textContent = params.get("date");
+  </script>
 </body>
 </html>
