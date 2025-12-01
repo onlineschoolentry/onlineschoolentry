@@ -11,7 +11,7 @@
 #cardBox {
   border: 4px solid #8b0e0e;
   border-radius: 30px;
-  padding: 2rem 2rem;
+  padding: 2.2rem 2rem;
   margin: 2rem auto;
   max-width: 700px;
   background: #fff;
@@ -19,24 +19,27 @@
 }
 
 #stamp {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   background: #6e0c0c;
   border-radius: 50%;
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 2.3rem;
+  right: 2.3rem;
 }
 
 #info p {
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  margin: 1.4rem 0;
-  font-weight: 500;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  margin: 1.2rem 0;
+  font-weight: 520;
+  line-height: 1.55;      /* 글씨 간격 비율 원상 복원 */
+  letter-spacing: -0.2px; /* 글자간 간격 조정 */
 }
 
 #goBtn {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
   margin-top: 2rem;
+  transition: 0.2s;
 }
 </style>
 
@@ -50,7 +53,7 @@
   <div id="info"></div>
 </div>
 
-<button id="goBtn" onclick="history.back()">ĐI RA</button>
+<button id="goBtn">ĐI RA</button>
 
 <footer class="footer">
   <p>© 2025 Online Entry. All rights reserved.</p>
@@ -58,16 +61,31 @@
 
 <script>
 const p = new URLSearchParams(window.location.search);
+const info = document.getElementById("info");
+const goBtn = document.getElementById("goBtn");
 
-document.getElementById("info").innerHTML = `
+// 기존 데이터 출력
+info.innerHTML = `
   <p>학번(Mã số lớp): ${p.get("id")}</p>
   <p>이름(Họ tên): ${p.get("name")}</p>
   <p>날짜(Ngày hôm nay): ${p.get("date")}</p>
   <p>사유(Lý do): ${p.get("reason")}</p>
   <p>지도 교사(GV chủ nhiệm): ${p.get("teacher")}</p>
   <p>출입 여부(Ra vào): ${p.get("entry")}</p>
-  <p>사용 여부(Đã sử dụng): ${p.get("use")}</p>
+  <p id="useField">사용 여부(Đã sử dụng): ${p.get("use")}</p>
 `;
+
+// 버튼 이벤트: 사용 여부 변경 + 재사용 방지
+goBtn.addEventListener("click", () => {
+  const useField = document.getElementById("useField");
+
+  useField.innerHTML = "사용 여부(Đã sử dụng): 사용함(Đã sử dụng)";
+  goBtn.textContent = "처리됨";
+  goBtn.style.background = "#444";
+  goBtn.style.color = "#fff";
+  goBtn.style.pointerEvents = "none"; // 버튼 비활성화
+  history.pushState(null, null, location.href); // 뒤로가기 무력화
+});
 </script>
 
 </body>
