@@ -1,79 +1,81 @@
 :root {
   --main-color: #810707;
   --accent-color: #a81010;
-  --bg-color: #f5f5f5;
+  --bg-color: #fafafa;
+  --font-base: clamp(0.9rem, 1.1vw, 1.1rem);
+  --font-medium: clamp(1.1rem, 2vw, 1.6rem);
+  --font-large: clamp(2rem, 4vw, 3rem);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
 body {
-  margin: 0;
   background: var(--bg-color);
-  font-family: 'Segoe UI', Arial, sans-serif;
   color: #333;
-  line-height: 1.8;
+  text-align: center;
+  padding: 1rem;
 }
 
-/* index 전용 */
-body.index-page > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 3rem 1rem;
+h1 {
+  font-size: var(--font-large);
+  color: var(--main-color);
+  margin: 1.2rem 0 2rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-#personalForm {
-  width: 90%;
+p {
+  font-size: var(--font-medium);
+  margin: 1rem 0;
+  line-height: 1.45;
+}
+
+button {
+  background: linear-gradient(to right, var(--main-color), var(--accent-color));
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  width: 100%;
   max-width: 600px;
+  margin-top: 2rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+button:active { transform: scale(0.97); }
+
+#personalForm, #qrGenerateForm {
   background: #fff;
+  max-width: 650px;
+  margin: auto;
   padding: 1.8rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  text-align: left;
 }
 
 input, select {
   padding: 12px;
-  border: 1px solid var(--main-color);
-  border-radius: 6px;
   font-size: 1rem;
-}
-
-/* entry 전용 */
-body.entry-page {
-  padding: 2rem;
-  text-align: center;
-}
-
-#entryCard {
-  border: 3px solid var(--main-color);
-  border-radius: 20px;
-  padding: 2rem 1.5rem;
-  margin: auto;
-  line-height: 2rem;
-  background: white;
-}
-
-h1 {
-  color: var(--main-color);
-  margin-bottom: 1rem;
-}
-
-button {
-  margin-top: 2rem;
+  border: 2px solid var(--main-color);
+  border-radius: 8px;
   width: 100%;
-  padding: 1rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(to right, var(--main-color), var(--accent-color));
-  color: white;
-  cursor: pointer;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
 .footer {
-  margin-top: 2rem;
-  font-size: 0.75rem;
-  color: #777;
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 3rem;
 }
