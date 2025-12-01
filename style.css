@@ -57,7 +57,7 @@ button:active { transform: scale(0.97); }
   background: #fff;
   max-width: 650px;
   margin: auto;
-  padding: 0.2rem 1.4rem 1.8rem 1.0rem;
+  padding: 0.8rem 1.4rem 1.8rem 1.0rem;
   /*        위   오른쪽  아래   왼쪽   */
   border: 5px solid var(--main-color);
   border-radius: 25px;
@@ -87,6 +87,7 @@ label {
   color: #555;
   margin-top: 3rem;
 }
+
 
 
 
