@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>출입증</title>
+<style>
+:root { --main:#810707; }
+body { background:#f5f5f5; padding:2rem; font-family:'Segoe UI'; text-align:center; }
+h1 { color:var(--main); font-size:2rem; font-weight:800; margin-bottom:1rem; }
+#card {
+  background:#fff; border:3px solid var(--main);
+  border-radius:20px; padding:2rem;
+  max-width:600px; margin:auto; text-align:left;
+  position:relative; line-height:2rem; font-size:1.2rem;
+}
+#circle {
+  width:80px; height:80px; background:var(--main);
+  border-radius:100px; position:absolute; right:1.5rem; top:1.5rem;
+}
+button {
+  background:var(--main); padding:1rem; width:100%;
+  max-width:600px; border:none; border-radius:12px;
+  color:#fff; margin-top:2rem; font-size:1.3rem;
+}
+</style>
+</head>
+
+<body>
+<h1>휴 일 출 입 증<br>GIẤY XÁC NHẬN VÀO TRƯỜNG</h1>
+
+<div id="card">
+  <div id="circle"></div>
+  <pre id="info"></pre>
+</div>
+
+<button onclick="out()">ĐI RA</button>
+
+<script>
+const p = new URLSearchParams(location.search);
+document.getElementById("info").textContent =
+`학번(Mã số lớp): ${p.get("id")}
+이름(Họ tên): ${p.get("name")}
+날짜(Ngày hôm nay): ${p.get("date")}
+사유(Lý do): ${p.get("reason")}
+지도교사(GV chủ nhiệm): ${p.get("teacher")}
+출입 여부(Ra vào): ${p.get("entry")}
+사용 여부(Đã sử dụng): ${p.get("use")}`;
+
+function out(){ alert("퇴실 완료"); location.reload(); }
+</script>
+</body>
+</html>
